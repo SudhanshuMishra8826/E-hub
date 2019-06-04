@@ -7,6 +7,17 @@ session_unset();
         <title> 
             Please Login
         </title>
+        <script>  
+            function validateform(){  
+            var name=document.myform.name.value;  
+            var pass=document.myform.pass.value; 
+
+            if (name==null || name==""||pass==null || pass==""){  
+            alert("Any feild can't be blank");  
+            return false;  
+            }
+            }  
+        </script> 
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,29 +39,26 @@ session_unset();
         </style>
     </head>
     <body>
-        <?php
+    <?php
             include 'header.php';
         ?>
         <div class='well' style='text-align:center'>
-        <form method="post" action="movie1.php">
+        <form name="myform" method="post" action="createuser.php"  onsubmit="return validateform()">
             <p>
-                Username : 
+                Create Username : 
                 <input type="text" name="name"/>
             </p>
             <p>
-                Password : 
+                Create Password : 
                 <input type="Password" name="pass"/>
             </p>
             <p> 
                 <input type="submit" name="submit" value="Submit"/>
             </p>
         </form>
-        <a href="signup.php">SignUp</a> 
-
-        </div>
-        <a href="index.html" class="button"><h4>Home Page</h4></a> 
-            
-             
+        <a href="login.php">Login</a> 
+        </div>    
+        <a href="index.html" class="button"><h4>Home Page</h4></a>   
     </body>
     
 </html >   
