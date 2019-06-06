@@ -98,7 +98,10 @@
         <br>
         <br>
         <a href="writeReview.php" class="button">Add Movie & Write Review</a> 
-
+        <br>
+        <a href="listproducts.php" class="button">Checkout Our products</a> 
+        <br>
+        <a href="viewcart.php" class="button">View My Cart</a>
         <br>
         <a href="login.php" class="button">Logout</a> 
 
