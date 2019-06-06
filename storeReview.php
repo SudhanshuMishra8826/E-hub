@@ -22,7 +22,7 @@
             $username = "root";
             $password = "";
             $dbname = "moviesdb";
-            echo "Movie Review of ".ucfirst($_POST['name'])."<br><br>";
+            #echo "Movie Review of ".ucfirst($_POST['name'])."<br><br>";
                 
             $dsn="mysql:host=".$servername.";dbname=".$dbname;
             $pdo=new PDO($dsn,$username,$password);
@@ -46,12 +46,11 @@
             $stmt=$pdo->prepare($sql);
             $stmt->bindParam(':name',$_POST["name"]);
             $stmt->bindParam(':review',$_POST["review"]);
-            $stmt->bindParam(':review',$_POST["rating"]);
-            
+            $stmt->bindParam(':rating',$_POST["rating"]);
             $stmt->execute();
             
-            echo "<script type='javascript'>alert(Review Stored);</script>";
-            #header('location: movie1.php');
+            echo "Review Stored : You will be redirected<br>";
+            header('Refresh: 1 ; movie1.php');
 
 
 ?> 
