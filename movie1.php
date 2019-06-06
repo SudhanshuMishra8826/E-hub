@@ -1,8 +1,8 @@
 <?php
     #setcookie("name",$_POST['name'],time()+60);
     session_start();
-    $_SESSION["user"]=$_POST["name"];
-    $_SESSION["password"]=$_POST["pass"];
+    $_SESSION["user"]=isset($_POST["name"])?$_POST["name"]:$_SESSION["user"];
+    $_SESSION["password"]=isset($_POST["pass"])?$_POST["pass"]:$_SESSION['password'];
     $_SESSION["authuser"]=0;
 
     $servername = "localhost";

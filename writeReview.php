@@ -32,8 +32,22 @@
             alert("Any feild can't be blank");  
             return false;  
             }
-            }  
-        </script>  
+            }
+
+        </script>
+          <style>
+        .button {
+                    text-decoration: none;
+                    display: block;
+                    
+                    background: #4E9CAF;
+                    padding: 10px;
+                    text-align: center;
+                    border-radius: 5px;
+                    color: white;
+                    font-weight: bold;
+                }
+        </style>  
     </head>
     <body>
         <?php
@@ -77,5 +91,8 @@
             </p>
         </form>
         </div>
+
+        <br>
+        <a href="movie1.php" class="button">Go To Home</a>
     </body>
 </html>

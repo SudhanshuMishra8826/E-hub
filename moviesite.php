@@ -78,6 +78,8 @@
             echo"<a href=\"writeReview.php\" class=\"button\">Add Movie & Write Review</a>"; 
     
             echo"<br>";
+            echo"<a href='movie1.php' class='button'>Go To Home</a>";
+            echo"<br>";
             echo"<a href=\"login.php\" class=\"button\">Logout</a>"; 
         ?>
     </body>

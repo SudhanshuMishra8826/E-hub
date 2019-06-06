@@ -95,6 +95,9 @@
             echo"</table>";
         ?> 
         <br>
+
+        <br>
+        <a href="movie1.php" class="button">Go To Home</a>
         <br>
         <a href="writeReview.php" class="button">Add Movie & Write Review</a>
         <br>
