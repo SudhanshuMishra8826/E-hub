@@ -1,33 +1,45 @@
 <?php
     #setcookie("name",$_POST['name'],time()+60);
     session_start();
-    $_SESSION["user"]=isset($_POST["name"])?$_POST["name"]:$_SESSION["user"];
-    $_SESSION["password"]=isset($_POST["pass"])?$_POST["pass"]:$_SESSION['password'];
-    $_SESSION["authuser"]=0;
+    if(isset($_POST['name'])&&isset($_POST["pass"]))
+    {
+        $_SESSION["user"]=$_POST['name'];
+        $_SESSION["password"]=$_POST['pass'];
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "moviesdb";
-    #echo "Movie Review of ".ucfirst($_POST['num'])."<br><br>";
-        
-    $dsn="mysql:host=".$servername.";dbname=".$dbname;
-    $pdo=new PDO($dsn,$username,$password);
+        $_SESSION["authuser"]=0;
 
-    $sql="SELECT pass from users where name=?";
-    $stmt=$pdo->prepare($sql);
-    $stmt->execute([$_SESSION["user"]]);
-    $row=$stmt->fetch(PDO::FETCH_ASSOC);
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "moviesdb";
+        #echo "Movie Review of ".ucfirst($_POST['num'])."<br><br>";
 
-    if(($_SESSION["password"]==$row['pass'])){
+        $dsn="mysql:host=".$servername.";dbname=".$dbname;
+        $pdo=new PDO($dsn,$username,$password);
+
+        $sql="SELECT pass from users where name=?";
+        $stmt=$pdo->prepare($sql);
+        $stmt->execute([$_SESSION["user"]]);
+        $row=$stmt->fetch(PDO::FETCH_ASSOC);
+
+        if(($_SESSION["password"]==$row['pass'])){
         $_SESSION["authuser"]=1;
-    }
-    else if($_SESSION["authuser"]==1){
-    }
-    else{
+        }
+        else if($_SESSION["authuser"]==1){
+        }
+        else{
         echo " Access not granted ";
         exit();
+        }
     }
+    elseif($_SESSION["authuser"]==1){
+    }
+    else{
+        header("Location:login.php");
+    }
+    #$_SESSION["user"]=isset($_POST["name"])?$_POST["name"]:$_SESSION["user"];
+    #$_SESSION["password"]=isset($_POST["pass"])?$_POST["pass"]:$_SESSION['password'];
+    
 
 ?>
 <html>
@@ -67,14 +79,19 @@
         <a href="moviesite.php?movienum=10">Click here to see my top 10 Movies</a><br/> -->
         
         <div class='well' style="text-align:center">
-        <b>Search for your fav Movies:</b>
         <form method="post" action="review.php">
             <p>
-                <input type='text' name='num' placeholder="Movie name"/>
+                <input style="width:400px;height:40px;margin:15px;" type='text' name='num' placeholder="Search for your favorite movie here"/>
                 <br/>
             </p>
             <input type="submit" name="submit" value="Submit"/>
         </form>
+        </div>
+        <div class="well" style="text-align:center">
+        <a href="bb.php">
+        Checkout Our Forums for more Content
+        </a>
+        <br/>
         </div>
         <div class='well' style="text-align:center">
         How many movie you would like to see:
@@ -95,7 +112,8 @@
         Clicke here to know details about my favorite movie !!!
         </a><br/>
         </div>
-        <br>
+        
+        <br> 
         <br>
         <a href="writeReview.php" class="button">Add Movie & Write Review</a> 
         <br>

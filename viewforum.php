@@ -32,21 +32,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <script>  
-            function validateform(){  
-            var name=document.myform.name.value;  
-            var type=document.myform.type.value; 
-            var dir=document.myform.dir.value;  
-            var act=document.myform.act.value; 
-            var review=document.myform.review.value;  
-            var rating=document.myform.rating.value;  
-
-            if (name==null || name==""||type==null || type==""||dir==null || dir==""||act==null || act==""||review==null || review==""||rating==null || rating==""){  
-            alert("Any feild can't be blank");  
-            return false;  
-            }
-            }  
-        </script>  
+  
     </head>
     <body>
         <?php
@@ -60,51 +46,38 @@
                 
             $dsn="mysql:host=".$servername.";dbname=".$dbname;
             $pdo=new PDO($dsn,$username,$password);
-
-            echo "<h2 style='text-align: center'> Product Details </h4><br>";
-            $sql2="SELECT * from product";
+            $i=0;
+            echo "<h2 style='text-align: center'>".ucfirst($_GET["forumtype"])." Forum </h4><br>";
+            $sql2="SELECT * from forumposts where forumtype=?";
             $stmt2=$pdo->prepare($sql2);
-            $stmt2->execute();
+            $stmt2->execute([$_GET['forumtype']]);
             echo"<table class='table' border='3' cellpadding='10' align='center'>";
-            echo"<th>Product Name</th>";
-            echo"<th>Details</th>";
-            echo"<th>Price (INR)</th>";
-            echo"<th>Image</th>";
-            echo"<th>Buy</th>";
             while($rows2=$stmt2->fetchAll(PDO::FETCH_ASSOC)){
-                foreach ($rows2 as $row2){
+                foreach($rows2 as $row){
+
+                    echo"<table class='table' border='3' cellpadding='10' align='center'>";
                     echo"<tr>";
-                    echo"<td>";
-                    echo ucfirst($row2['pname']);
+                    echo"<td style='text-align:center'>";
+                    #echo $i."  "; 
+                    echo ucfirst($row['title']);
                     echo"</td>";
-                    echo"<td>";
-                    echo ucfirst($row2['pdetail']);
+                    echo"<tr>";
+                    echo"<td colspan=2>";
+                    echo ucfirst($row['content']);
                     echo"</td>";
-                    echo"<td>";
-                    echo ucfirst($row2['pprice']);
+                    echo"</tr><tr>";
+                    echo"<td style='text-align:right'>";
+                    echo "By :- ".ucfirst($row['uid']);
                     echo"</td>";
-                    echo"<td>";
-                    echo "<a target='_blank' href=".$row2['pimage']."> View</a>";
-                    echo"</td>";
-                    echo"<td>";
-                    echo "<a target='_blank' href=addtocart.php?pid=".$row2['pid']."&pname=".$row2['pname']."> Add To  Cart</a>";
-                    echo"</td>";
-                    echo"</tr>";
+                    echo"</tr><tr>";
+                    echo"<td style='text-align:right'>";
+                    echo"</td></tr>";
                 }
             }
-            echo"</table>";
         ?> 
-        <br>
-
+        
         <br>
         <a href="movie1.php" class="button">Go To Home</a>
         <br>
-        <a href="viewcart.php" class="button">View My Cart</a>
-        <br>
-        <a href="writeReview.php" class="button">Add Movie & Write Review</a>
-        <br>
-        <a href="login.php" class="button">Logout</a> 
-
-        
     </body>
 </html>

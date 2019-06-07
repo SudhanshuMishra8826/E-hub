@@ -11,7 +11,7 @@
 <html>
     <head>
         <title> 
-            Dashboard
+            Bulletin Board
         </title>
         <style>
             .button {
@@ -62,40 +62,35 @@
             $pdo=new PDO($dsn,$username,$password);
 
             echo "<h2 style='text-align: center'> Product Details </h4><br>";
-            $sql2="SELECT * from product";
+            $sql2="SELECT DISTINCT forumtype from forumposts";
             $stmt2=$pdo->prepare($sql2);
             $stmt2->execute();
+            $i=1;
             echo"<table class='table' border='3' cellpadding='10' align='center'>";
-            echo"<th>Product Name</th>";
-            echo"<th>Details</th>";
-            echo"<th>Price (INR)</th>";
-            echo"<th>Image</th>";
-            echo"<th>Buy</th>";
+            echo"<th>No.</th>";
+            echo"<th>Forum Name</th>";
+            echo"<th>View now</th>";
             while($rows2=$stmt2->fetchAll(PDO::FETCH_ASSOC)){
                 foreach ($rows2 as $row2){
                     echo"<tr>";
                     echo"<td>";
-                    echo ucfirst($row2['pname']);
+                    echo $i;
                     echo"</td>";
                     echo"<td>";
-                    echo ucfirst($row2['pdetail']);
+                    echo ucfirst($row2['forumtype']);
                     echo"</td>";
                     echo"<td>";
-                    echo ucfirst($row2['pprice']);
-                    echo"</td>";
-                    echo"<td>";
-                    echo "<a target='_blank' href=".$row2['pimage']."> View</a>";
-                    echo"</td>";
-                    echo"<td>";
-                    echo "<a target='_blank' href=addtocart.php?pid=".$row2['pid']."&pname=".$row2['pname']."> Add To  Cart</a>";
+                    echo "<a target='_blank' href=viewforum.php?forumtype=".$row2['forumtype'].">View Forum</a>";
                     echo"</td>";
                     echo"</tr>";
+                    $i++;
                 }
             }
             echo"</table>";
         ?> 
-        <br>
-
+        <div class="well" style="text-align:center">
+        <a href="writeforum.php">Write Something for Our Forum</a>
+        </div>
         <br>
         <a href="movie1.php" class="button">Go To Home</a>
         <br>
